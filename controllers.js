@@ -118,30 +118,30 @@ export async function register(req, res) {
 
            
             // Create a Nodemailer transporter with OAuth2
-            const transporter = nodemailer.createTransport({
-                host: 'smtp.office365.com',
-                port: 587, // Use the correct port for Office 365 SMTP
-                secure: false, // Use false if you're using a non-secure connection
-                auth: {
-                    user: 'admin@doulafocus.com',
-                    pass: 'binah!1997A'
-                }
-            });
+            // const transporter = nodemailer.createTransport({
+            //     host: 'smtp.office365.com',
+            //     port: 587, // Use the correct port for Office 365 SMTP
+            //     secure: false, // Use false if you're using a non-secure connection
+            //     auth: {
+            //         user: 'admin@doulafocus.com',
+            //         pass: ''
+            //     }
+            // });
             const mailOptions = {
                 from: 'admin@doulafocus.com',
                 to: email,
                 subject: 'Email Verification',
                 text: `Please click on the following link to verify your email: ${verificationLink}`
             };
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.error('Error sending email:', error);
-                    res.render(__dirname + '/views/status/emailError.ejs', { loggedIn: false, regiFailed:true, regiSuc:false, error });
-                } else {
-                    console.log('Email sent:', info.response);
-                    res.render(__dirname + '/views/status/regSuc.ejs', { loggedIn: false, regiFailed: false, regiSuc:true });
-                }
-            });
+            // transporter.sendMail(mailOptions, (error, info) => {
+            //     if (error) {
+            //         console.error('Error sending email:', error);
+            //         res.render(__dirname + '/views/status/emailError.ejs', { loggedIn: false, regiFailed:true, regiSuc:false, error });
+            //     } else {
+            //         console.log('Email sent:', info.response);
+            //         res.render(__dirname + '/views/status/regSuc.ejs', { loggedIn: false, regiFailed: false, regiSuc:true });
+            //     }
+            // });
     
             //res.render(__dirname + '/views/status/regSuc.ejs', {loggedIn:false, regiFailed:false});
         }
