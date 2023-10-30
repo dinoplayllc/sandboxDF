@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doula Focus</title>
+    <link rel="shortcut icon" href="./icon/droplet.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;300&display=swap" rel="stylesheet">
+    <!-- Add the following script for the navbar toggler -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
+
+    <nav class="navbar nav-color fixed-top">
+      <div class="d-flex justify-content-between w-100">
+        <span class="navbar-brand mb-0">Focus</span>
+        <div>
+          <% if (loggedIn === false) {%>
+            <a class="mx-2 anchor" href="http://localhost:8080/home">Home</a>
+            <a class="mx-2 anchor" href="http://localhost:8080/donate">Donate</a>
+            <button class="btn btn-outline-success me-2 hide" id="showFormBtn" type="button">Add New</button>
+            <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navtog-color custom-toggler navbar-toggler-icon"></span>
+            </button>
+            <% } else {%>
+              <a class="mx-2 anchor" href="http://localhost:8080/home">Home</a>
+              <a class="mx-2 anchor" href="http://localhost:8080/donate">Donate</a>
+              <button class="btn btn-outline-success me-2" onclick="showForm();" id="showFormBtn" type="button">Add New</button>
+            <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navtog-color custom-toggler navbar-toggler-icon"></span>
+            </button>
+           <%} %>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <% if(regiSuc === false) {%>
+            <% if(regiFailed === false){ %>
+              <% if (loggedIn === false) { %>
+                <button class="btn btn-light mb-2 mt-2" id="showRegister-loggedInFalse" onclick="hide(); " data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Register</button>
+                <button class="btn btn-light " onclick="unhide();" id="showLogin-loggedInFalse" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Login</button>  
+              <% } else { %>
+                <button class="btn btn-light mb-2 mt-2 hide" id="showRegister" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Register</button>
+                <button class="btn btn-light hide " id="showLogin" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Login</button>  
+                <a href="/logout" class="btn btn-light w-100" >Logout</a>
+              <% } %>
+            <% } else { %>
+              <% if (loggedIn === false) { %>
+                <button class="btn btn-light mb-2 mt-2" id="showRegister-loggedInFalse" onclick="hideForm();" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Register</button>
+                <button class="btn btn-light  " onclick="unhide();" id="showLogin-loggedInFalse" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Login</button>  
+              <% } else { %>
+                <button class="btn btn-light mb-2 mt-2 hide" id="showRegister" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Register</button>
+                <button class="btn btn-light hide " id="showLogin" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Login</button>  
+                <a href="/logout" class="btn btn-light w-100" >Logout</a>
+              <% } %>
+            <% }%>
+          <%} else {%>
+            <% if (loggedIn === false) { %>
+              <button class="btn btn-light mb-2 mt-2" id="showRegister-loggedInFalse" onclick="hideForm();" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Register</button>
+              <button class="btn btn-light " onclick="unhide();" id="showLogin-loggedInFalse" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Login</button>  
+            <% } else { %>
+              <button class="btn btn-light mb-2 mt-2 hide" id="showRegister" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Register</button>
+              <button class="btn btn-light hide " id="showLogin" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">Login</button>  
+              <a href="/logout" class="btn btn-light w-100" >Logout</a>
+            <% } %>
+          <%}%>
+          
+            
+
+         </div>
+      </div>
+    </nav>
+    <div class="form-container">
+      <form action="/submit" method="POST">
+          <input type="text" class="text" name="motherName" placeholder="MothersName">
+          <textarea type="textarea" name="note" placeholder="New Note" rows="5" cols="33"></textarea>
+          <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div class="form-register">
+      <h1>Register</h1>
+      <form action="/register" method="POST">
+        <input id="regiFocus"  type="text" class="text" name="email" placeholder="email">
+        <input type="text" class="text mt-2" name="username" placeholder="username">
+        <input type="password" class="text my-2" name="password" placeholder="password">
+        <input type="password" class="text mb-2" name="passwordVer" placeholder="verify password">
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <% if (regiSuc === false) {%>
+      <% if (regiFailed === false){ %>
+        <% if (loggedIn === false ) {%>
+          <div class="form-login-loggedOut hide">
+            <h1>Login</h1>
+            <form action="/login" method="POST">
+              <input id="textboxFocus" type="text" class="text" name="userLog" placeholder="email">
+              <input type="password" class="text my-2" name="passLog" placeholder="password">
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        <%} %>
+
+
+    <% } else { %>
+      <% if (loggedIn === false ) {%>
+        <div class="form-login-loggedOut hide">
+          <h1>Login</h1>
+          <form action="/login" method="POST">
+            <input id="textboxFocus" type="text" class="text" name="userLog" placeholder="username">
+            <input type="password" class="text my-2" name="passLog" placeholder="password">
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      <%}%>
+    <%} %>
+    <% } else { %>
+      <div class="form-login-loggedOut hide">
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+          <input id="textboxFocus" type="text" class="text" name="userLog" placeholder="username">
+          <input type="password" class="text my-2" name="passLog" placeholder="password">
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+  <%} %>
+
+
+
+    
+    <div id="overlay" class="overlay"></div>
+
+</head>
+<body>
+
+  
+    

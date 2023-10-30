@@ -1,0 +1,299 @@
+*{
+  font-family: 'Work Sans', sans-serif;
+  scroll-behavior: smooth;
+}
+html{
+  scroll-padding-top: 70px;
+}
+body {
+  background-color: #a8a196;
+}
+
+.nav-color {
+  background-color: #071952;
+  /* outline: #071952 2px dashed ; */
+  color: #28A745;
+  opacity: .98;
+}
+
+.jm {
+  outline: black 2px solid;
+}
+
+.marauto {
+  margin: auto;
+}
+
+.motherTag {
+  background-color: #071952;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  color: #97feed;
+}
+
+.yaxis {
+  overflow-x: scroll;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ccc;
+  z-index: -1;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.form-login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  display: none;
+  opacity: .95;
+  z-index: 1;
+  border-radius: 5%;
+}
+.form-login-loggedOut {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  display: block;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  opacity: .95;
+  z-index: 1;
+  border-radius: 5%;
+}
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  display: none;
+  opacity: .95;
+  z-index: 1;
+  border-radius: 5%;
+}
+.form-register {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  display: none;
+  opacity: .95;
+  z-index: 1;
+  border-radius: 5%;
+}
+.form-registerSuccess {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  display: block;
+  opacity: .95;
+  z-index: 1;
+  border-radius: 5%;
+}
+.form-verSuccess {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  display: block;
+  opacity: .95;
+  z-index: 1;
+  border-radius: 5%;
+}
+.form-invalidToken {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  display: block;
+  opacity: .95;
+  z-index: 1;
+  border-radius: 5%;
+}
+.form-regFail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  display: block;
+  opacity: .95;
+  z-index: 1;
+  border-radius: 5%;
+}
+.form-verFail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  display: block;
+  opacity: .95;
+  z-index: 1;
+  border-radius: 5%;
+}
+
+.show-form {
+  display: block;
+}
+
+@keyframes fadeOutBackground {
+  to {
+    opacity: 0.2;
+  }
+}
+
+.cell-notes {
+  max-height: auto;
+  padding: 5px;
+  margin: 1rem;
+}
+
+textarea {
+  border: none;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  overflow: auto;
+  width: 100%;
+  padding: 5px;
+  border-radius: 5%;
+
+}
+
+.text {
+  border: none;
+  border: 1px solid #ccc;
+  outline: none; /* Remove the default outline */
+  width: 100%;
+  padding: 5px;
+  border-radius: 5%;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+
+button {
+  /* Add this to remove the default focus styles */
+  outline: none;
+}
+
+.overf {
+  height: auto;
+  overflow: scroll;
+}
+
+.cell {
+  min-height: auto;
+  max-height: 350px;
+  overflow: auto;
+  margin-left: 1rem;
+  background-color: rgb(151, 254, 237, 0.5);
+  border-bottom-left-radius: 5%;
+  border-bottom-right-radius: 5%;
+  /* border-radius: 5%; */
+  text-align: center;
+}
+
+.cellMother {
+  min-height: auto;
+  max-height: 350px;
+  overflow: auto;
+  margin-left: 1rem;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.navtog-color {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(40,167,69)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+.navtog-color:hover {
+  color: #FFC436;
+}
+.custom-toggler.navbar-toggler {
+  border-color: rgb(40, 167, 69);
+}
+
+a {
+  color: rgb(40, 167, 69);
+}
+a:hover{
+  color: #FFC436;
+}
+#Home{
+
+  padding-top: 3%;
+  height: 1024px;
+}
+#Donate{
+  padding-top: 25%;
+  height: 1024px;
+}
+.card-amount{
+  text-align: center;
+}
+
+#set1{
+  height: 20%;
+  
+}
+#set2{
+  height: 20%;
+  padding: 5%;
+  background-color: rgb(255,196,54, .3);
+  border-radius: 15%;
+  text-align: center;
+  
+}
+#set3{
+  height: 20%;
+}
+.aboutCenter{
+  text-align: center;
+}
