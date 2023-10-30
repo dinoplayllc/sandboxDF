@@ -211,79 +211,79 @@ export async function getUserPage(req, res) {
     const folderPath = '/DoulaFocus'; // Replace with the path to the folder you want to list files from
     const fileUser = userId; // Specify the desired file extension
 
-    const specificFiles = await listSpecificFiles(folderPath, fileUser);
-    documentsArray.push(...specificFiles);
-    //console.log(documentsArray.path_display);
+    // const specificFiles = await listSpecificFiles(folderPath, fileUser);
+    // documentsArray.push(...specificFiles);
+    // //console.log(documentsArray.path_display);
 
 
-    // Define a function to create and retrieve shared links for an array of files
-    async function createAndRetrieveSharedLinks(files) {
-      const sharedLinks = [];
+    // // Define a function to create and retrieve shared links for an array of files
+    // async function createAndRetrieveSharedLinks(files) {
+    //   const sharedLinks = [];
 
-      for (const file of files) {
-        try {
-          const sharedLinkUrl = await createAndRetrieveSharedLinks(file.path_display);
-          sharedLinks.push({ file: file.path_display, sharedLink: sharedLinkUrl });
-          console.log('Shared Link URL for', file.path_display, ':', sharedLinkUrl);
-        } catch (error) {
-          // Handle the error, e.g., log it or take appropriate action
-          console.error('Error:', error);
-        }
-      }
+    //   for (const file of files) {
+    //     try {
+    //       const sharedLinkUrl = await createAndRetrieveSharedLinks(file.path_display);
+    //       sharedLinks.push({ file: file.path_display, sharedLink: sharedLinkUrl });
+    //       console.log('Shared Link URL for', file.path_display, ':', sharedLinkUrl);
+    //     } catch (error) {
+    //       // Handle the error, e.g., log it or take appropriate action
+    //       console.error('Error:', error);
+    //     }
+    //   }
 
-      return sharedLinks;
-    }
+    //   return sharedLinks;
+    // }
 
-    // // Usage
-    // const documentsArrays = documentsArray.path_display;
-    // 
+    // // // Usage
+    // // const documentsArrays = documentsArray.path_display;
+    // // 
 
-    // Create an empty array to store the extracted path_display values
-    const extractedPaths = [];
+    // // Create an empty array to store the extracted path_display values
+    // const extractedPaths = [];
 
-    // Use forEach to iterate through documentsArray and extract path_display
-    documentsArray.forEach((document) => {
-      extractedPaths.push(document.path_display);
-    });
-    // Now, 'extractedPaths' contains all the 'path_display' values
-    console.log("extracted path: " + extractedPaths);
-    // Convert the array of paths into an array of objects with path_display property
-    const documentsWithPaths = extractedPaths.map((path) => {
-      return { path_display: path };
-    });
+    // // Use forEach to iterate through documentsArray and extract path_display
+    // documentsArray.forEach((document) => {
+    //   extractedPaths.push(document.path_display);
+    // });
+    // // Now, 'extractedPaths' contains all the 'path_display' values
+    // console.log("extracted path: " + extractedPaths);
+    // // Convert the array of paths into an array of objects with path_display property
+    // const documentsWithPaths = extractedPaths.map((path) => {
+    //   return { path_display: path };
+    // });
 
-    // Assuming documentsArray is a non-iterable object
-    const iterableArray = Object.keys(extractedPaths).map(key => ({ path_display: extractedPaths[key] }));
+    // // Assuming documentsArray is a non-iterable object
+    // const iterableArray = Object.keys(extractedPaths).map(key => ({ path_display: extractedPaths[key] }));
 
-    // Now you can iterate over the iterableArray
-    for (const item of iterableArray) {
-      const filePath = item.path_display;
+    // // Now you can iterate over the iterableArray
+    // for (const item of iterableArray) {
+    //   const filePath = item.path_display;
 
-      createAndRetrieveSharedLinks(filePath)
-      .then((sharedLinks) => {
-        // sharedLinks array now contains shared links for each file
-        console.log('All shared links:', sharedLinks);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });}
+    //   createAndRetrieveSharedLinks(filePath)
+    //   .then((sharedLinks) => {
+    //     // sharedLinks array now contains shared links for each file
+    //     console.log('All shared links:', sharedLinks);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error:', error);
+    //   });}
 
 
 
-    // Function to get shared links for an array of documents
-    async function getSharedLinksForDocuments(documentsArray) {
-      const sharedLinks = [];
-      for (const document of documentsArray) {
-        const sharedLink = document.sharedLink; // Replace with the actual property containing the shared link
-        sharedLinks.push(sharedLink);
-      }
-      return sharedLinks;
-    }
+    // // Function to get shared links for an array of documents
+    // async function getSharedLinksForDocuments(documentsArray) {
+    //   const sharedLinks = [];
+    //   for (const document of documentsArray) {
+    //     const sharedLink = document.sharedLink; // Replace with the actual property containing the shared link
+    //     sharedLinks.push(sharedLink);
+    //   }
+    //   return sharedLinks;
+    // }
 
 
     // Check if the logged-in user's ID matches the requested userID
     if (userId === req.params.userID) {
-      res.render(__dirname + '/views/index.ejs', { motherName: read, loggedIn: true, regiFailed:false,  regiSuc:false, sharedLinks: await getSharedLinksForDocuments(documentsArray) });
+      res.render(__dirname + '/views/index.ejs', { motherName: read, loggedIn: true, regiFailed:false,  regiSuc:false, });
       //res.redirect(`/${userId}`);
     } else {
       // Redirect to a different URL for unauthorized access
