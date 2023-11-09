@@ -1,7 +1,8 @@
 import express from 'express';
-import {logout, login, submit, register, updateList, updateNotes, getIndexPage, getUserPage, verify, donate, checkLoggedIn } from './controllers.js';
+import {logout, login, submit, register, updateList, updateNotes, getIndexPage, verify, donate, checkLoggedIn, getUserPage } from './controllers.js';
 
 const router = express.Router();
+
 
 router.get('/logout', logout);
 router.post('/login', login);

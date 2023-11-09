@@ -1,16 +1,16 @@
+/* eslint-disable no-useless-catch */
 import { Dropbox } from 'dropbox';
 
-
-
 // Initialize the Dropbox client with your app key and secret.
-export const dbx = new Dropbox({
+const config = new Dropbox({
+  fetch,
   clientId: 'gy7zj8e87xcu5lv',
-  clientSecret: '55dxpysg5pzrnmf',
 });
 
-export const authUrl = dbx.auth.getAuthenticationUrl('http://localhost:8080/auth/dropbox/callback', null, 'code');
-console.log('Click the following link to authorize your app:\n', authUrl);
 
+export const dbx = new Dropbox(config);
+
+export const redirectUr = "http://localhost:8080/auth/dropbox/callback"
 
 export async function uploadFile(filePath, destPath) {
   try {

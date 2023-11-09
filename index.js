@@ -12,9 +12,7 @@ import filter from 'content-filter';
 import sanitize from 'mongo-sanitize';
 import multer from 'multer';
 import {GridFsStorage} from 'multer-gridfs-storage';
-import {login} from './controllers.js';
-import fs from 'fs';
-import { uploadFile, downloadFile, createSharedLink, dbx } from './dropbox.js';
+import { uploadFile, downloadFile, createSharedLink, dbx, redirectUr } from './dropbox.js';
 
 const port = 8080;
 const app = express();
@@ -109,7 +107,7 @@ export async function updateDoc(motherID, updatedNote) {
     } catch (error) {
         console.error('Error updating document:', error);
     }
-};
+}
 
 export async function insertDoc(userId, motherName, note) {
     var S_userId = sanitize(userId);
@@ -171,18 +169,27 @@ app.post('/uploadfile', upload.single('myFile'), (req, res) => {
   })
 
   app.get('/auth/dropbox/callback', async (req, res) => {
-    const code = req.query.code;
+    const { code } = req.query;
+    console.log(`code:${code}`);
   
-    try {
-      const token = await dbx.auth.getAccessTokenFromCode('http://localhost:8080/auth/dropbox/callback', code);
-      console.log('Access token:', token);
-      // You can now use the token to make API calls on behalf of the user.
-    } catch (error) {
-      console.error('Error exchanging code for token:', error);
-    }
-  
-    res.send('Authorization complete. You can close this tab.');
+    dbx.auth.getAccessTokenFromCode(redirectUr, code)
+      .then((token) => {
+        console.log(`Token Result:${JSON.stringify(token)}`);
+        dbx.auth.setRefreshToken(token.result.refresh_token);
+        dbx.usersGetCurrentAccount()
+          .then((response) => {
+            console.log('response', response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    res.redirect('/');
   });
+  
 
 process.on('SIGINT', async () => {
     await mongoose.connection.close();

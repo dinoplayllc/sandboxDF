@@ -11,7 +11,8 @@ import nodemailer from 'nodemailer';
 import sanitize from 'mongo-sanitize';
 import fs from 'fs';
 import grid from 'gridfs-stream';
-import { listSpecificFiles, getSharedLink, createSharedLink } from './dropbox.js';
+import { listSpecificFiles, getSharedLink, createSharedLink, dbx, redirectUr } from './dropbox.js';
+import { Dropbox } from "dropbox";
 
 mongoose.connect('mongodb+srv://admin-hector:test123@freetest1.8lywiq7.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true,
@@ -113,26 +114,26 @@ export async function register(req, res) {
     
             await newUser.save();
             
-            const verificationLink = `http://doulafoucs.com/verify/${verificationToken}`;
+            // const verificationLink = `http://doulafoucs.com/verify/${verificationToken}`;
 
 
            
-            // Create a Nodemailer transporter with OAuth2
+            // // Create a Nodemailer transporter with OAuth2
             // const transporter = nodemailer.createTransport({
             //     host: 'smtp.office365.com',
             //     port: 587, // Use the correct port for Office 365 SMTP
             //     secure: false, // Use false if you're using a non-secure connection
             //     auth: {
-            //         user: 'admin@doulafocus.com',
+            //         user: '',
             //         pass: ''
             //     }
             // });
-            const mailOptions = {
-                from: 'admin@doulafocus.com',
-                to: email,
-                subject: 'Email Verification',
-                text: `Please click on the following link to verify your email: ${verificationLink}`
-            };
+            // const mailOptions = {
+            //     from: '',
+            //     to: email,
+            //     subject: 'Email Verification',
+            //     text: `Please click on the following link to verify your email: ${verificationLink}`
+            // };
             // transporter.sendMail(mailOptions, (error, info) => {
             //     if (error) {
             //         console.error('Error sending email:', error);
@@ -201,90 +202,25 @@ export async function getIndexPage(req, res) {
     }
   }
   
+export async function getAuth(req, res) {
+
+  dbx.auth.getAuthenticationUrl(redirectUr, null, 'code', 'offline', null, 'none', true)
+    .then((authUrl) => {
+      res.writeHead(302, { Location: authUrl });
+      res.end();
+    });
+}
+
 export async function getUserPage(req, res) {
-    const documentsArray = [];
     // Your logic for logged-in users goes here
     // You can use req.session.userId to access the logged-in user's ID
     const userId = req.session.userId; 
     const read = await MotherModel.find({mom_id: 'user_' + userId});
-  
-    const folderPath = '/DoulaFocus'; // Replace with the path to the folder you want to list files from
-    const fileUser = userId; // Specify the desired file extension
-
-    // const specificFiles = await listSpecificFiles(folderPath, fileUser);
-    // documentsArray.push(...specificFiles);
-    // //console.log(documentsArray.path_display);
-
-
-    // // Define a function to create and retrieve shared links for an array of files
-    // async function createAndRetrieveSharedLinks(files) {
-    //   const sharedLinks = [];
-
-    //   for (const file of files) {
-    //     try {
-    //       const sharedLinkUrl = await createAndRetrieveSharedLinks(file.path_display);
-    //       sharedLinks.push({ file: file.path_display, sharedLink: sharedLinkUrl });
-    //       console.log('Shared Link URL for', file.path_display, ':', sharedLinkUrl);
-    //     } catch (error) {
-    //       // Handle the error, e.g., log it or take appropriate action
-    //       console.error('Error:', error);
-    //     }
-    //   }
-
-    //   return sharedLinks;
-    // }
-
-    // // // Usage
-    // // const documentsArrays = documentsArray.path_display;
-    // // 
-
-    // // Create an empty array to store the extracted path_display values
-    // const extractedPaths = [];
-
-    // // Use forEach to iterate through documentsArray and extract path_display
-    // documentsArray.forEach((document) => {
-    //   extractedPaths.push(document.path_display);
-    // });
-    // // Now, 'extractedPaths' contains all the 'path_display' values
-    // console.log("extracted path: " + extractedPaths);
-    // // Convert the array of paths into an array of objects with path_display property
-    // const documentsWithPaths = extractedPaths.map((path) => {
-    //   return { path_display: path };
-    // });
-
-    // // Assuming documentsArray is a non-iterable object
-    // const iterableArray = Object.keys(extractedPaths).map(key => ({ path_display: extractedPaths[key] }));
-
-    // // Now you can iterate over the iterableArray
-    // for (const item of iterableArray) {
-    //   const filePath = item.path_display;
-
-    //   createAndRetrieveSharedLinks(filePath)
-    //   .then((sharedLinks) => {
-    //     // sharedLinks array now contains shared links for each file
-    //     console.log('All shared links:', sharedLinks);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error:', error);
-    //   });}
-
-
-
-    // // Function to get shared links for an array of documents
-    // async function getSharedLinksForDocuments(documentsArray) {
-    //   const sharedLinks = [];
-    //   for (const document of documentsArray) {
-    //     const sharedLink = document.sharedLink; // Replace with the actual property containing the shared link
-    //     sharedLinks.push(sharedLink);
-    //   }
-    //   return sharedLinks;
-    // }
-
 
     // Check if the logged-in user's ID matches the requested userID
     if (userId === req.params.userID) {
-      res.render(__dirname + '/views/index.ejs', { motherName: read, loggedIn: true, regiFailed:false,  regiSuc:false, });
-      //res.redirect(`/${userId}`);
+    res.render(__dirname + '/views/index.ejs', { motherName: read, loggedIn: true, regiFailed:false,  regiSuc:false });
+
     } else {
       // Redirect to a different URL for unauthorized access
       res.redirect(`/`);

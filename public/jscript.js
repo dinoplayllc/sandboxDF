@@ -1,3 +1,4 @@
+
 const showFormBtn = document.getElementById("showFormBtn");
 const formContainer = document.querySelector(".form-container");
 const showRegister = document.getElementById("showRegister");
@@ -258,3 +259,7 @@ function updateFunc(index, motherName) {
     .catch(error => console.error('Error:', error));
 }
 
+function regiClicked() {
+    const regiSubm = document.getElementById('regiSub');
+    regiSubm.disabled = true;
+}
